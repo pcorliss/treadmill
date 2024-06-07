@@ -1,0 +1,25 @@
+Service: 0000180a-0000-1000-8000-00805f9b34fb
+  Characteristic: 00002a29-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'ISSC')
+  Characteristic: 00002a24-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'BM70')
+  Characteristic: 00002a25-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'0000')
+  Characteristic: 00002a27-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'5505 102_BLDK3')
+  Characteristic: 00002a26-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'009500')
+  Characteristic: 00002a28-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'0000')
+  Characteristic: 00002a23-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00')
+  Characteristic: 00002a2a-0000-1000-8000-00805f9b34fb, Properties: ['read']
+    -> This characteristic supports reading.
+    -> Value: bytearray(b'\x00\x00\x00\x00\x01\x00\x00\x00')
