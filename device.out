@@ -1,0 +1,71 @@
+Found target device: LifeSpan with address: 968C8C0A-BFD0-EBCD-E5E0-A0CB16F0BFE9
+/Users/pcorliss/git/tread_bleak/tread_bleak.py:54: FutureWarning: This method will be removed future version, use the services property instead.
+  services = await client.get_services()
+Service: 0000180a-0000-1000-8000-00805f9b34fb (16)
+  Description: Device Information
+  Characteristic: 00002a29-0000-1000-8000-00805f9b34fb (17)
+    Description: Manufacturer Name String
+    Properties: ['read']
+      Read: bytearray(b'ISSC')
+  Characteristic: 00002a24-0000-1000-8000-00805f9b34fb (19)
+    Description: Model Number String
+    Properties: ['read']
+      Read: bytearray(b'BM70')
+  Characteristic: 00002a25-0000-1000-8000-00805f9b34fb (21)
+    Description: Serial Number String
+    Properties: ['read']
+      Read: bytearray(b'0000')
+  Characteristic: 00002a27-0000-1000-8000-00805f9b34fb (23)
+    Description: Hardware Revision String
+    Properties: ['read']
+      Read: bytearray(b'5505 102_BLDK3')
+  Characteristic: 00002a26-0000-1000-8000-00805f9b34fb (25)
+    Description: Firmware Revision String
+    Properties: ['read']
+      Read: bytearray(b'009500')
+  Characteristic: 00002a28-0000-1000-8000-00805f9b34fb (27)
+    Description: Software Revision String
+    Properties: ['read']
+      Read: bytearray(b'0000')
+  Characteristic: 00002a23-0000-1000-8000-00805f9b34fb (29)
+    Description: System ID
+    Properties: ['read']
+      Read: bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00')
+  Characteristic: 00002a2a-0000-1000-8000-00805f9b34fb (31)
+    Description: IEEE 11073-20601 Regulatory Cert. Data List
+    Properties: ['read']
+      Read: bytearray(b'\x00\x00\x00\x00\x01\x00\x00\x00')
+Service: 49535343-5d82-6099-9348-7aac4d5fbc51 (48)
+  Description: Unknown
+  Characteristic: 49535343-026e-3a9b-954c-97daef17e26e (49)
+    Description: Unknown
+    Properties: ['write', 'notify']
+      MaxWrite: 155
+      Descriptor: 00002902-0000-1000-8000-00805f9b34fb (51)
+        Description: Client Characteristic Configuration
+Service: 49535343-c9d0-cc83-a44a-6fe238d06d33 (64)
+  Description: Unknown
+  Characteristic: 49535343-aca3-481c-91ec-d85e28a60318 (65)
+    Description: Unknown
+    Properties: ['write', 'notify']
+      MaxWrite: 155
+      Descriptor: 00002902-0000-1000-8000-00805f9b34fb (67)
+        Description: Client Characteristic Configuration
+Service: 0000fff0-0000-1000-8000-00805f9b34fb (80)
+  Description: Vendor specific
+  Characteristic: 0000fff1-0000-1000-8000-00805f9b34fb (81)
+    Description: Vendor specific
+    Properties: ['write-without-response', 'write', 'notify']
+      MaxWrite: 155
+      Descriptor: 00002902-0000-1000-8000-00805f9b34fb (83)
+        Description: Client Characteristic Configuration
+  Characteristic: 0000fff2-0000-1000-8000-00805f9b34fb (84)
+    Description: Vendor specific
+    Properties: ['write-without-response', 'write']
+      MaxWrite: 155
+  Characteristic: 49535343-4c8a-39b3-2f49-511cff073b7e (86)
+    Description: Unknown
+    Properties: ['write', 'notify']
+      MaxWrite: 155
+      Descriptor: 00002902-0000-1000-8000-00805f9b34fb (88)
+        Description: Client Characteristic Configuration

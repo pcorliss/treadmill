@@ -49,49 +49,28 @@ async def discover_device():
     print(f"Found target device: {device.name} with address: {device.address}")
     return device.address
 
-EXCLUDE_CHARACTERISTICS = [
-  '49535343-aca3-481c-91ec-d85e28a60318',
-  '49535343-026e-3a9b-954c-97daef17e26e',
-]
-
-# This one creates a solid light after init
-INCLUDE_CHARACTERISTICS = [
-  '0000fff1-0000-1000-8000-00805f9b34fb',
-]
-
 async def discover_characteristics(device_address):
   async with BleakClient(device_address) as client:
     services = await client.get_services()
     for service in services:
+      print(f"Service: {service.uuid} ({service.handle})")
+      print(f"  Description: {service.description}")
       for char in service.characteristics:
-        if "write" in char.properties:
-          if char.uuid in INCLUDE_CHARACTERISTICS:
-            print(f"Service: {service.uuid}")
-            print(f"  Characteristic: {char.uuid}, Properties: {char.properties}")
-            await init_sequence(client, char.uuid)
-            print("  Init Compoleted")
-            print(f"max_write_size: {char.max_write_without_response_size}")
-            response = await client.write_gatt_char(char.uuid, INFO_QUERIES["stop"])
-            print(f"Resp: {response}")
+        # print all characteristic fields
+        print(f"  Characteristic: {char.uuid} ({char.handle})")
+        print(f"    Description: {char.description}")
+        print(f"    Properties: {char.properties}")
+        if 'read' in char.properties:
+          val = await client.read_gatt_char(char.uuid)
+          print(f"      Read: {val}")
+        if 'write' in char.properties:
+          print(f"      MaxWrite: {char.max_write_without_response_size}")
 
-
-def notification_handler(characteristic: BleakGATTCharacteristic, data: bytearray):
-    """Simple notification handler which prints the data received."""
-    logger.info("%s: %r", characteristic.description, data)
+        for descriptor in char.descriptors:
+          print(f"      Descriptor: {descriptor.uuid} ({descriptor.handle})")
+          print(f"        Description: {descriptor.description}")
 
                     
-# if "read" in char.properties:
-#     print(f"    -> This characteristic supports reading.")
-#     data = await client.read_gatt_char(char.uuid)
-#     print(f"    -> Value: {data}")
-
-async def steps(client, characteristic_uuid):
-  await client.write_gatt_char(characteristic_uuid, INFO_QUERIES["steps"])
-
-async def init_sequence(client, characteristic_uuid):
-  for command in INIT_SEQUENCE:
-    await client.write_gatt_char(characteristic_uuid, command)
-
 async def main():
     device_address = await discover_device()
     if device_address:
