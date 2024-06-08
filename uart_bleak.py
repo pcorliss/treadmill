@@ -1,21 +1,10 @@
 import asyncio
 from bleak import BleakClient
 from bleak.backends.characteristic import BleakGATTCharacteristic
-import os
 import queue
 
-
 DEVICE_ADDRESS = '968C8C0A-BFD0-EBCD-E5E0-A0CB16F0BFE9'  # Replace with your device's address
-# Characteristic: 0000fff1-0000-1000-8000-00805f9b34fb (81)
 CHARACTERISTIC_UUID = '0000fff1-0000-1000-8000-00805f9b34fb' # Solid Blue - None
-# Characteristic: 0000fff2-0000-1000-8000-00805f9b34fb (84)
-# CHARACTERISTIC_UUID = '0000fff2-0000-1000-8000-00805f9b34fb' # Solid Blue - None
-# Characteristic: 49535343-4c8a-39b3-2f49-511cff073b7e (86)
-# CHARACTERISTIC_UUID = '49535343-4c8a-39b3-2f49-511cff073b7e' # None
-# Characteristic: 49535343-026e-3a9b-954c-97daef17e26e (49)
-# CHARACTERISTIC_UUID = '49535343-026e-3a9b-954c-97daef17e26e' # None
-# Characteristic: 49535343-aca3-481c-91ec-d85e28a60318 (65)
-# CHARACTERISTIC_UUID = '49535343-aca3-481c-91ec-d85e28a60318'
 
 INIT_SEQUENCE = [
     b"\x02\x00\x00\x00\x00",
@@ -61,7 +50,6 @@ def handle_rx(_: BleakGATTCharacteristic, data: bytearray):
     else:
         print("received:", data_name, data, list(data))
 
-
 # Speed in MPH
 def decode_speed(data):
     return data[2] + (data[3] / 100)
@@ -88,32 +76,14 @@ async def run(address):
         # Receive notifications
         await client.start_notify(CHARACTERISTIC_UUID, handle_rx)
 
-        # Works!!!
         # # Start the device
-        q.put('start')
-        await client.write_gatt_char(CHARACTERISTIC_UUID, CMDS["start"])
-        await asyncio.sleep(6)
-        # await send_cmd(client, CMDS["start"], "start")
-
-        q.put('set_speed')
-        print("Setting speed to 2.0", speed_cmd(2.0), list(speed_cmd(2.0)))
-        await client.write_gatt_char(CHARACTERISTIC_UUID, speed_cmd(2.0))
-        await asyncio.sleep(6)
+        await send_cmd(client, CMDS["start"], "start")
+        await send_cmd(client, speed_cmd(2.0), "set_speed")
 
         # Query information
         while True:
             for name, query in INFO_QUERIES.items():
-                q.put(name)
-                await client.write_gatt_char(CHARACTERISTIC_UUID, query, response=False)
-                await asyncio.sleep(5)
-
-        # Works!!!
-        # # Start the device
-        # await client.write_gatt_char(CHARACTERISTIC_UUID, CMDS["start"])
-        # await asyncio.sleep(5)
-        # # Stop the device
-        # await client.write_gatt_char(CHARACTERISTIC_UUID, CMDS["stop"])
-
+                await send_cmd(client, query, name)
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(run(DEVICE_ADDRESS))
