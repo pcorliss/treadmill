@@ -5,6 +5,7 @@ import queue
 
 DEVICE_ADDRESS = '968C8C0A-BFD0-EBCD-E5E0-A0CB16F0BFE9'  # Replace with your device's address
 CHARACTERISTIC_UUID = '0000fff1-0000-1000-8000-00805f9b34fb' # Solid Blue - None
+WAIT_TIME = 5
 
 INIT_SEQUENCE = [
     b"\x02\x00\x00\x00\x00",
@@ -65,7 +66,7 @@ def decode_time(data):
 async def send_cmd(client, cmd, name):
     q.put(name)
     await client.write_gatt_char(CHARACTERISTIC_UUID, cmd, response=False)
-    await asyncio.sleep(5)
+    await asyncio.sleep(WAIT_TIME)
 
 async def run(address):
     async with BleakClient(address) as client:
