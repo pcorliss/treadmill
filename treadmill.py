@@ -1,5 +1,6 @@
 import asyncio
 from bleak import BleakClient
+from bleak.exc import BleakDeviceNotFoundError
 from bleak.backends.characteristic import BleakGATTCharacteristic
 import queue
 
@@ -69,22 +70,24 @@ async def send_cmd(client, cmd, name):
     await asyncio.sleep(WAIT_TIME)
 
 async def run(address):
-    async with BleakClient(address) as client:
-        # Write INIT_SEQUENCE
-        for command in INIT_SEQUENCE:
-            await client.write_gatt_char(CHARACTERISTIC_UUID, command)
+    while True:
+        try:
+            async with BleakClient(address) as client:
+                # Write INIT_SEQUENCE
+                for command in INIT_SEQUENCE:
+                    await client.write_gatt_char(CHARACTERISTIC_UUID, command)
 
-        # Receive notifications
-        await client.start_notify(CHARACTERISTIC_UUID, handle_rx)
+                # Receive notifications
+                await client.start_notify(CHARACTERISTIC_UUID, handle_rx)
 
-        # # Start the device
-        await send_cmd(client, CMDS["start"], "start")
-        await send_cmd(client, speed_cmd(2.0), "set_speed")
-
-        # Query information
-        while True:
-            for name, query in INFO_QUERIES.items():
-                await send_cmd(client, query, name)
+                # Query information
+                while True:
+                    for name, query in INFO_QUERIES.items():
+                        await send_cmd(client, query, name)
+            break  # If connection is successful, break the loop
+        except BleakDeviceNotFoundError:
+            print("Device not found, retrying...")
+            await asyncio.sleep(1)  # Wait for a second before retrying
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(run(DEVICE_ADDRESS))
