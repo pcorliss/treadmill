@@ -2,8 +2,8 @@
 
 This script interacts via bluetooth with my TR1000 LifeSpan treadmill with retro console.
 
-Big thanks to [@brandonarbini](https://github.com/brandonarbini) for their original work reverse engineering the initialization and command codes. [Ruby Project](https://github.com/brandonarbini/treadmill)
-Also thanks to [@lostmsu](https://github.com/lostmsu) for their detective work and C# project. 
+Big thanks to [@brandonarbini](https://github.com/brandonarbini) for their original work reverse engineering the initialization and command codes.
+Also thanks to [@lostmsu](https://github.com/lostmsu) for their detective work and project. 
 And all the helpful comments in GitHub that worked as helpful breadcrumbs along the way.
 * [brandonarbini/treadmill](https://github.com/brandonarbini/treadmill) - Ruby
 * [lostmsu/Xrcise](https://github.com/lostmsu/Xrcise) - C#
